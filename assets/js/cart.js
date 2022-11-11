@@ -30,13 +30,23 @@ const products = window.localStorage.getItem("productsDB")
   : db;
 
 const productContainer = document.getElementById("products__content");
+const botonFiltroActivo = document.querySelectorAll(".products__item");
+// console.log(botonFiltroActivo);
+let categoriaFiltrar = "";
+botonFiltroActivo.forEach((element) => {
+  element.addEventListener("click", function () {
+    let filtro = element.textContent.trim().replace(/ /g, "").split("\n");
+    categoriaFiltrar = filtro[0];
+    printProducts(categoriaFiltrar);
+  });
+});
 
-function printProducts() {
+function printProducts(categoriaFiltrar) {
   let html = "";
-
   for (let product of products) {
-    html += `
-    <article class="products__card hoodies">
+    if (product.category === categoriaFiltrar) {
+      html = `
+    <article class="products__card ${product.category}">
     <div class="products__shape">
       <img src="${product.image}" alt="${product.name}" class="products__img">
     </div>
@@ -52,13 +62,35 @@ function printProducts() {
       </button>
     </div>
   </article>`;
-  }
+    } else if (categoriaFiltrar == "MOSTRARTODOS") {
+      // console.log(categoriaFiltrar);
 
-  productContainer.innerHTML = html;
+      html += `
+      <article class="products__card ${product.category}">
+      <div class="products__shape">
+        <img src="${product.image}" alt="${product.name}" class="products__img">
+      </div>
+  
+      <div class="products__data">
+        <h2 class="products__name">${product.name}</h2>
+        <div class="">
+          <h3 class="products__price">$ ${product.price}</h3>
+          <span class="products__quantity">Quedan solo ${product.quantity} unidades</span>
+        </div>
+        <button type="button" class="button products__button addToCart" data-id="${product.id}">
+          <i class="bx bx-plus"></i>
+        </button>
+      </div>
+    </article>`;
+    }
+    // console.log(html);
+
+    productContainer.innerHTML = html;
+  }
   window.localStorage.setItem("productsDB", JSON.stringify(products));
 }
 
-printProducts();
+printProducts("MOSTRARTODOS");
 
 let cart = window.localStorage.getItem("cartDB")
   ? JSON.parse(window.localStorage.getItem("cartDB"))

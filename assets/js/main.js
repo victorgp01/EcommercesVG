@@ -1,4 +1,3 @@
-import { activeProduct } from "./components/activeProduct.js";
 import { cartMenu } from "./components/cartMenu.js";
 import { darkTheme } from "./components/darkTheme.js";
 import { headerScroll } from "./components/headerScroll.js";
@@ -16,13 +15,13 @@ document.addEventListener("DOMContentLoaded", function () {
   navMenu();
   cartMenu();
   sectionActive();
-  activeProduct();
-  mixitup(".products__content", {
-    selectors: {
-      target: ".products__card",
-    },
-    animation: {
-      duration: 300,
-    },
-  }).filter("all");
+  ".products__content",
+    {
+      selectors: {
+        target: ".products__card",
+      },
+      animation: {
+        duration: 300,
+      },
+    };
 });
