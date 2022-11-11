@@ -63,8 +63,6 @@ function printProducts(categoriaFiltrar) {
     </div>
   </article>`;
     } else if (categoriaFiltrar == "MOSTRARTODOS") {
-      // console.log(categoriaFiltrar);
-
       html += `
       <article class="products__card ${product.category}">
       <div class="products__shape">
@@ -83,7 +81,6 @@ function printProducts(categoriaFiltrar) {
       </div>
     </article>`;
     }
-    // console.log(html);
 
     productContainer.innerHTML = html;
   }
@@ -227,7 +224,7 @@ function checkout() {
   });
   clearCart();
   printCart();
-  printProducts();
+  printProducts("MOSTRARTODOS");
   window.alert("Gracias por su compra");
 }
 
